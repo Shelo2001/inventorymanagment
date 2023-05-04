@@ -1,4 +1,3 @@
-const { Sequelize } = require('sequelize')
 const { Product } = require('../models/product')
 
 const models = {

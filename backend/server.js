@@ -7,7 +7,7 @@ const productRoutes = require('./routes/productRoutes')
 app.use(cors())
 app.use(express.json())
 
-app.use('/api/products', productRoutes)
+app.use('/inventories', productRoutes)
 
 sequelize.sync()
 
