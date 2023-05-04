@@ -28,4 +28,5 @@ const Product = sequelize.define('product', {
 
 module.exports = {
   Product,
+  sequelize,
 }

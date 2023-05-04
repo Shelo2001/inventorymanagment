@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const { sequelize, models } = require('./database/db')
+const { sequelize } = require('./models/product')
 const productRoutes = require('./routes/productRoutes')
 
 app.use(cors())

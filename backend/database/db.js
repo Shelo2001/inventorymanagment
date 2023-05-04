@@ -1,12 +1,6 @@
 const { Sequelize } = require('sequelize')
 const { Product } = require('../models/product')
 
-const sequelize = new Sequelize('db', 'postgres', 'postgres', {
-  host: 'localhost',
-  port: 5432,
-  dialect: 'postgres',
-})
-
 const models = {
   Product,
 }
@@ -17,6 +11,5 @@ Object.values(models)
   .forEach((model) => model.associate(models))
 
 module.exports = {
-  sequelize,
   models,
 }
