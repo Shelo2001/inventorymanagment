@@ -63,8 +63,8 @@ const createProduct = async (req, res) => {
 
 const deleteProductById = async (req, res) => {
   try {
-    const { id } = req.params
-    const product = await Product.findOne({ where: { id } })
+    const { inventoryId } = req.params
+    const product = await Product.findOne({ where: { id: inventoryId } })
     if (!product) {
       return res.json({ message: 'Product not found' })
     }

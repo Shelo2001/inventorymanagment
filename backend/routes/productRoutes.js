@@ -9,6 +9,6 @@ const {
 
 router.get('/', getProducts)
 router.post('/', createProduct)
-router.delete('/:id', deleteProductById)
+router.delete('/:inventoryId', deleteProductById)
 
 module.exports = router
