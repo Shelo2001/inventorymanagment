@@ -1,13 +1,13 @@
 {
   "name": "cavea",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm run --prefix frontend dev",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "seeder": "node backend/seeder/seed.js"
   },
   "author": "Akaki Shelia",
   "license": "ISC",
@@ -18,5 +18,17 @@
     "nodemon": "^2.0.22",
     "pg": "^8.10.0",
     "sequelize": "^6.31.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shelo2001/inventorymanagment.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shelo2001/inventorymanagment/issues"
+  },
+  "homepage": "https://github.com/Shelo2001/inventorymanagment#readme",
+  "description": "",
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
   }
 }
