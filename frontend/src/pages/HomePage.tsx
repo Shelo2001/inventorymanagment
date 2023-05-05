@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
     <>
       <Header />
 
-      <div style={{ width: '50%', margin: 'auto', marginTop: '100px' }}>
+      <div className='pagecontainer'>
         <Form.Select
           style={{ marginBottom: '50px', width: '50%' }}
           onChange={(e) => {
@@ -90,23 +90,53 @@ const HomePage: React.FC = () => {
           <Pagination.First
             onClick={() => getInventories(1, priceSort, location)}
           />
-          <Pagination.Prev
-            onClick={() => getInventories(currentPage - 1, priceSort, location)}
-            disabled={currentPage === 1}
-          />
-          {[...Array(totalPages)].map((_, index) => (
-            <Pagination.Item
-              key={index + 1}
-              active={index + 1 === currentPage}
-              onClick={() => getInventories(index + 1, priceSort, location)}
-            >
-              {index + 1}
-            </Pagination.Item>
-          ))}
-          <Pagination.Next
-            onClick={() => getInventories(currentPage + 1, priceSort, location)}
-            disabled={currentPage === totalPages}
-          />
+          {currentPage != 1 && (
+            <>
+              <Pagination.Prev
+                onClick={() =>
+                  getInventories(currentPage - 1, priceSort, location)
+                }
+              />
+              <Pagination.Item>{1}</Pagination.Item>
+              <Pagination.Ellipsis
+                onClick={() =>
+                  getInventories(currentPage - 5, priceSort, location)
+                }
+              />
+
+              <Pagination.Item
+                onClick={() =>
+                  getInventories(currentPage - 1, priceSort, location)
+                }
+              >
+                {currentPage - 1}
+              </Pagination.Item>
+            </>
+          )}
+          <Pagination.Item active>{currentPage}</Pagination.Item>
+          {currentPage != totalPages && (
+            <>
+              {' '}
+              <Pagination.Item
+                onClick={() =>
+                  getInventories(currentPage + 1, priceSort, location)
+                }
+              >
+                {currentPage + 1}
+              </Pagination.Item>
+              <Pagination.Ellipsis
+                onClick={() =>
+                  getInventories(currentPage + 5, priceSort, location)
+                }
+              />
+              <Pagination.Item>{totalPages}</Pagination.Item>
+              <Pagination.Next
+                onClick={() =>
+                  getInventories(currentPage + 1, priceSort, location)
+                }
+              />
+            </>
+          )}
           <Pagination.Last
             onClick={() => getInventories(totalPages, priceSort, location)}
           />

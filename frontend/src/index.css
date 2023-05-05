@@ -4,3 +4,37 @@ a {
 ::-webkit-scrollbar {
   display: none;
 }
+.pagecontainer {
+  width: 50%;
+  margin: auto;
+  margin-top: 100px;
+}
+.formcontainer {
+  width: 30%;
+  margin: auto;
+  margin-top: 100px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .pagecontainer {
+    width: 80%;
+    margin-top: 50px;
+  }
+
+  .formcontainer {
+    width: 60%;
+    margin-top: 100px;
+  }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 768px) {
+  .pagecontainer {
+    width: 96%;
+    margin-top: 50px;
+  }
+
+  .formcontainer {
+    width: 80%;
+    margin-top: 100px;
+  }
+}

@@ -11,6 +11,8 @@ const CreateInventory: React.FC = () => {
 
   const { createInventory, errorMessage } = useStore(inventoriesStore)
 
+  const [error, setError] = useState('')
+
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
     let data = {
@@ -18,19 +20,21 @@ const CreateInventory: React.FC = () => {
       price,
       location,
     }
-    createInventory(data)
+    if (!name) {
+      setError('Provide a name')
+    } else if (!price) {
+      setError('Provide a price')
+    } else if (!location) {
+      setError('Provide a location')
+    } else {
+      createInventory(data)
+    }
   }
 
   return (
     <div>
       <Header />
-      <div
-        style={{
-          width: '30%',
-          margin: 'auto',
-          marginTop: '100px',
-        }}
-      >
+      <div className='formcontainer'>
         <Form
           style={{
             border: '1px solid #ced4da',
@@ -41,6 +45,7 @@ const CreateInventory: React.FC = () => {
           onSubmit={handleSubmit}
         >
           {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
+          {error && <Alert variant='danger'>{error}</Alert>}
           <Form.Group controlId='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control

@@ -10,7 +10,7 @@ interface Inventory {
 
 interface InventoriesStore {
   inventories: Inventory[]
-  currentPage: number | null
+  currentPage: number
   location: string
   totalPages: number | null
   totalCount: number | null
@@ -26,10 +26,10 @@ interface InventoriesStore {
 
 const inventoriesStore = createStore<InventoriesStore>((set) => ({
   inventories: [],
-  currentPage: null,
-  totalPages: null,
+  currentPage: 1,
+  totalPages: 1,
   location: '',
-  totalCount: null,
+  totalCount: 1,
   async getInventories(page, priceSort, location) {
     try {
       const response: AxiosResponse<Inventory[]> = await axios.get<Inventory[]>(
