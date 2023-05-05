@@ -11,10 +11,15 @@ interface Inventory {
 interface InventoriesStore {
   inventories: Inventory[]
   currentPage: number | null
+  location: string
   totalPages: number | null
   totalCount: number | null
   errorMessage: string | null
-  getInventories: (page: number) => Promise<void>
+  getInventories: (
+    page: number,
+    priceSort: string,
+    location: string
+  ) => Promise<void>
   deleteInventory: (id: number) => Promise<void>
   createInventory: (data: object) => Promise<Inventory>
 }
@@ -23,11 +28,12 @@ const inventoriesStore = createStore<InventoriesStore>((set) => ({
   inventories: [],
   currentPage: null,
   totalPages: null,
+  location: '',
   totalCount: null,
-  async getInventories(page) {
+  async getInventories(page, priceSort, location) {
     try {
       const response: AxiosResponse<Inventory[]> = await axios.get<Inventory[]>(
-        `/inventories?page=${page}`
+        `/inventories?page=${page}&pricesort=${priceSort}&location=${location}`
       )
       set({
         inventories: response.data.products,
