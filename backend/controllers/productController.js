@@ -2,9 +2,24 @@ const { where } = require('sequelize')
 const { Product } = require('../models/product')
 
 const getProducts = async (req, res) => {
+  const page = parseInt(req.query.page || 1)
+  const offset = (page - 1) * 20
+
   try {
-    const products = await Product.findAll()
-    res.json({ products })
+    const products = await Product.findAndCountAll({
+      limit: 20,
+      offset: offset,
+    })
+
+    const totalCount = products.count
+    const totalPages = Math.ceil(totalCount / 20)
+
+    res.json({
+      products: products.rows,
+      currentPage: page,
+      totalPages: totalPages,
+      totalCount: totalCount,
+    })
   } catch (error) {
     res.status(500).json({ message: 'Server Error' })
   }

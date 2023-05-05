@@ -1,15 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStore } from 'zustand'
 import inventoriesStore from '../services/inventories'
-import { Table, Button } from 'react-bootstrap'
+import { Table, Button, Pagination } from 'react-bootstrap'
 import Header from '../components/Header'
 
 const HomePage: React.FC = () => {
-  const { getInventories, inventories, deleteInventory } =
-    useStore(inventoriesStore)
+  const {
+    getInventories,
+    inventories,
+    deleteInventory,
+    currentPage,
+    totalPages,
+  } = useStore(inventoriesStore)
+
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
-    getInventories()
+    getInventories(page)
   }, [])
 
   return (
@@ -46,6 +53,28 @@ const HomePage: React.FC = () => {
             ))}
           </tbody>
         </Table>
+
+        <Pagination>
+          <Pagination.First onClick={() => getInventories(1)} />
+          <Pagination.Prev
+            onClick={() => getInventories(currentPage - 1)}
+            disabled={currentPage === 1}
+          />
+          {[...Array(totalPages)].map((_, index) => (
+            <Pagination.Item
+              key={index + 1}
+              active={index + 1 === currentPage}
+              onClick={() => getInventories(index + 1)}
+            >
+              {index + 1}
+            </Pagination.Item>
+          ))}
+          <Pagination.Next
+            onClick={() => getInventories(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          />
+          <Pagination.Last onClick={() => getInventories(totalPages)} />
+        </Pagination>
       </div>
     </>
   )
