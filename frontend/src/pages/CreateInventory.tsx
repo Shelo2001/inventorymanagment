@@ -1,15 +1,24 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Alert, Button } from 'react-bootstrap'
+import inventoriesStore from '../services/inventories'
+import { useStore } from 'zustand'
 
 const CreateInventory: React.FC = () => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [location, setLocation] = useState('')
 
+  const { createInventory, errorMessage } = useStore(inventoriesStore)
+
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
-    console.log(name, price, location)
+    let data = {
+      name,
+      price,
+      location,
+    }
+    createInventory(data)
   }
 
   return (
@@ -31,6 +40,7 @@ const CreateInventory: React.FC = () => {
           }}
           onSubmit={handleSubmit}
         >
+          {errorMessage && <Alert variant='danger'>{errorMessage}</Alert>}
           <Form.Group controlId='name'>
             <Form.Label>Name</Form.Label>
             <Form.Control

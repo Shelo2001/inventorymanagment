@@ -10,8 +10,10 @@ interface Inventory {
 
 interface InventoriesStore {
   inventories: Inventory[]
+  errorMessage: string | null
   getInventories: () => Promise<void>
   deleteInventory: (id: number) => Promise<void>
+  createInventory: (data: object) => Promise<Inventory>
 }
 
 const inventoriesStore = createStore<InventoriesStore>((set) => ({
@@ -37,6 +39,25 @@ const inventoriesStore = createStore<InventoriesStore>((set) => ({
       }
     } catch (error) {
       console.error(error)
+    }
+  },
+
+  async createInventory(data: object) {
+    try {
+      const response: AxiosResponse<Inventory> = await axios.post<Inventory>(
+        `/inventories`,
+        data
+      )
+      if (response.data) {
+        window.location.href = '/'
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        set({ errorMessage: error.response.data.message })
+        setTimeout(() => {
+          set({ errorMessage: null })
+        }, 3000)
+      }
     }
   },
 }))
